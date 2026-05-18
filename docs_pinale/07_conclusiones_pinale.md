@@ -1,0 +1,6 @@
+# Conclusiones del Caso
+
+1. **La ciberseguridad es un riesgo de directorio:** El hackeo al Banco de Chile demostró que los ataques cibernéticos no son un problema exclusivo de TI, sino una amenaza estratégica que pone en riesgo la viabilidad operativa y patrimonial de toda la organización.
+2. **El peligro de las redes planas:** El caso evidenció que los terminales de alta criticidad (como los operadores de SWIFT) deben estar fuertemente segmentados de las redes corporativas regulares.
+3. **Punto de inflexión nacional:** Este incidente obligó a todo el país a madurar. Generó la actualización normativa de la CMF, el impulso a la Ley 21.459 y fomentó la creación de equipos robustos de respuesta ante incidentes (CSIRT) en el sector privado chileno.
+4. **Ningún país está aislado:** Demostró que actores de amenazas geopolíticas apoyados por estados (como Corea del Norte) ven a Latinoamérica como un objetivo lucrativo, desmintiendo la idea de que Chile estaba lejos del "radar" de los ciberdelincuentes de élite.
