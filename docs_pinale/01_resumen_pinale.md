@@ -1,12 +1,12 @@
-# Resumen del Incidente: Hackeo al Banco de Chile (2018)
+# Resumen Ejecutivo: Caso Banco de Chile (2018)
 
-El 24 de mayo de 2018, el Banco de Chile sufrió uno de los ciberataques más sofisticados y mediáticos en la historia del sector financiero chileno. 
+## ¿Qué pasó?
+El 24 de mayo de 2018, el Banco de Chile sufrió un sofisticado ciberataque de tipo *Apt* (Amenaza Persistente Avanzada). Los atacantes utilizaron un malware destructivo (wiper KillDisk) para inutilizar masivamente los sistemas operativos de las sucursales, utilizándolo como una maniobra de distracción. Mientras los equipos de TI intentaban contener esta supuesta falla masiva, los cibercriminales se infiltraron en la red SWIFT (Sociedad para las Telecomunicaciones Financieras Interbancarias Mundiales) del banco.
 
-## El Vector de Distracción
-Los atacantes desplegaron un malware destructivo (tipo *wiper*, de la familia KillDisk) en la red interna del banco. Este virus sobreescribió el Master Boot Record (MBR) de los equipos, inutilizando pantallas y dejando fuera de servicio cerca de 9.000 estaciones de trabajo y 500 servidores en las sucursales. 
+## ¿Quiénes participaron?
+Las investigaciones internacionales de ciberseguridad atribuyeron este ataque al **Lazarus Group** (APT38), una organización de cibercriminales presuntamente patrocinada por el Estado de Corea del Norte. 
 
-## El Objetivo Real
-Mientras el equipo de ciberseguridad y TI del banco intentaba contener lo que parecía un ataque masivo de destrucción o secuestro de datos, los verdaderos atacantes aprovecharon el caos para infiltrarse en la red de mensajería interbancaria internacional **SWIFT**.
-
-## Resultado
-A través del sistema SWIFT, los cibercriminales emitieron múltiples órdenes de pago fraudulentas. Lograron concretar cuatro transferencias que resultaron en el robo de aproximadamente **10 millones de dólares**, los cuales fueron desviados hacia cuentas en Hong Kong.
+## Impacto
+* **Operativo:** Cerca de 9.000 estaciones de trabajo y 500 servidores quedaron totalmente inutilizados tras el borrado de sus registros de arranque (MBR).
+* **Financiero:** A través de la red SWIFT, los atacantes lograron emitir transferencias fraudulentas a cuentas en Hong Kong, robando aproximadamente **10 millones de dólares**. 
+* **A clientes:** Ningún fondo, cuenta corriente o producto de los clientes del banco se vio comprometido; el dinero sustraído pertenecía directamente al patrimonio de la institución financiera.

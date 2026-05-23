@@ -1,13 +1,12 @@
-# Marco Contextual y Actor de Amenaza
+# Marco Normativo Aplicable
 
-## Contexto Global
-El modus operandi de atacar el sistema SWIFT no era nuevo. En 2016, el Banco Central de Bangladesh había sufrido un robo de 81 millones de dólares utilizando una metodología de infiltración casi idéntica. Las redes financieras estaban en alerta, pero los niveles de segmentación y detección en muchos bancos latinoamericanos aún estaban en desarrollo.
+El análisis de este incidente involucra la intersección de regulaciones nacionales del sector financiero, leyes penales e instrumentación internacional. A continuación, se detallan cuatro normas fundamentales aplicables al caso:
 
-## El Actor de Amenaza: Lazarus Group
-Las investigaciones forenses posteriores, apoyadas por empresas de ciberseguridad internacionales y agencias de inteligencia, atribuyeron el ataque al **Lazarus Group**. 
-* **Origen:** Grupo de hackers patrocinado por el estado de Corea del Norte (APT38).
-* **Motivación:** Financiamiento del régimen norcoreano para evadir las severas sanciones económicas internacionales.
-* **Táctica:** Conocidos por comprometer instituciones financieras globales combinando herramientas altamente destructivas (como *wipers* o *ransomware*) con técnicas avanzadas de persistencia en sistemas transaccionales.
-
-## Contexto Nacional (2018)
-En Chile, la ciberseguridad bancaria era manejada principalmente a nivel de infraestructura TI (antivirus, firewalls perimetrales). Este ataque demostró que la separación y segmentación de redes críticas (como los terminales que operaban SWIFT) frente a la red corporativa general (los PCs de sucursales) era insuficiente frente a una Amenaza Persistente Avanzada (APT).
+1. **Recopilación Actualizada de Normas (RAN) - Capítulo 1-13 de la CMF (Nacional)**
+   * **Justificación:** Es la normativa específica para bancos en Chile emitida por la Comisión para el Mercado Financiero (ex SBIF). Regula la gestión del riesgo operacional y la ciberseguridad. Tras este ataque, la norma fue actualizada para exigir a los bancos reportar incidentes críticos en un plazo máximo de 30 minutos.
+2. **Ley N° 21.459 sobre Delitos Informáticos (Nacional)**
+   * **Justificación:** Es la ley chilena actual que tipifica las conductas delictivas en el ciberespacio. Aplica directamente para perseguir penalmente la intrusión, destrucción de datos y el fraude informático realizado contra la infraestructura bancaria.
+3. **Convenio de Budapest sobre Ciberdelincuencia (Internacional)**
+   * **Justificación:** Tratado internacional del cual Chile es Estado parte. Es aplicable porque este incidente involucró cibercrimen transfronterizo (atacantes en Asia, infraestructura en Chile, fondos desviados a Hong Kong). Proporciona el marco para la cooperación policial y asistencia judicial mutua internacional.
+4. **SWIFT Customer Security Controls Framework - CSCF (Internacional/Estándar de la Industria)**
+   * **Justificación:** Es el marco de controles de seguridad obligatorio para todas las instituciones conectadas a la red SWIFT. Se aplica como el estándar técnico que el banco debía cumplir (segmentación de red, autenticación multifactor) para prevenir la inyección de transacciones fraudulentas.

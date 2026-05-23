@@ -1,9 +1,15 @@
-# Registro de Prompts Utilizados
+# Bitácora de Uso de IA
 
-A continuación, se documentan los *prompts* diseñados para estructurar y extraer la información técnica del caso:
+[cite_start]Esta bitácora documenta el uso de Inteligencia Artificial como apoyo en la investigación y estructuración del análisis legal del caso[cite: 77, 81].
 
-1. **Investigación de vectores:** *"Genera un resumen técnico detallando cómo el virus KillDisk fue usado como maniobra de distracción en el ataque al Banco de Chile en 2018, y cómo los atacantes accedieron a la red SWIFT."*
-2. **Contexto del atacante:** *"Explica quién es el grupo Lazarus, su vinculación con el gobierno de Corea del Norte y por qué atacaron instituciones financieras en Sudamérica."*
-3. **Análisis normativo:** *"¿Cuál era la legislación de delitos informáticos vigente en Chile en el año 2018 y cómo este ataque influyó en la creación de la Ley 21.459?"*
-4. **Comparativa de incidentes:** *"Crea una tabla comparativa en formato Markdown entre el ataque al Banco de Chile (2018) y el ataque de ransomware a BancoEstado (2020), enfocándote en vectores y objetivos."*
-5. **Impacto al cliente:** *"Resume el impacto real que tuvo el ataque del Banco de Chile sobre los fondos de los clientes versus el patrimonio del banco y describe las nuevas normas de la SBIF (actual CMF) originadas por esto."*
+* [cite_start]**Herramienta Empleada:** Gemini (Modelo avanzado)[cite: 78].
+* [cite_start]**Sección:** `01_resumen` a `07_conclusiones` (Construcción del contenido en Markdown)[cite: 79].
+
+## Interacción Principal
+* [cite_start]**Prompt Utilizado:** *"Necesito tu ayuda respecto al caso del hackeo al banco de Chile el 24 de mayo del 2018 para mis archivos .md y sus respectivos puntos... (y posteriormente se cargaron las instrucciones de evaluación pidiendo que se apliquen directamente: 'Necesito todos listos, por favor')."* [cite: 78]
+* [cite_start]**Qué se aceptó y qué se corrigió:** [cite: 80]
+  * **Aceptado:** La estructura limpia en Markdown, la separación técnica de los archivos y la excelente redacción de los conceptos técnicos (SWIFT, Zero Trust, KillDisk). 
+  * **Corregido (Justificación):** Originalmente, la IA analizó el caso usando la Ley 19.223 porque era la vigente en 2018. Sin embargo, la rúbrica exigía usar la Ley 21.459 y la Ley 19.628 de forma estricta, por lo que se ajustó el enfoque para mapear los delitos bajo los artículos 1, 2 y 7 de la nueva normativa. También se reemplazó una tabla comparativa de incidentes por una tabla comparativa de *marcos regulatorios por industria*, conforme exigían las instrucciones de la Evaluación 02.
+
+## [cite_start]Reflexión Final [cite: 81]
+El uso de la IA fue fundamental como motor de aceleración para estructurar el proyecto. Permitió transformar la investigación de un evento complejo (distracciones wiper vs. inyección de SWIFT) en resúmenes técnicos concisos y bien organizados. Demostró que, para trabajos académicos, la IA no debe usarse en "piloto automático", sino que debe ser dirigida con *prompts* que incluyan el marco legal específico de la pauta, forzándola a adaptar hechos del pasado a legislaciones actuales.
