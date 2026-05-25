@@ -28,31 +28,76 @@ const MarkdownViewer = ({ content }) => {
   const renderHTML = () => {
     const lines = content.split('\n');
     let htmlOutput = [];
+    let inTable = false; // Nuevo estado para saber si estamos dentro de una tabla
 
     lines.forEach(line => {
       let trimmed = line.trim();
       
-      if (trimmed.startsWith('# ')) {
-        htmlOutput.push(`<h1 class="text-2xl font-extrabold mb-6 text-blue-900">${trimmed.slice(2)}</h1>`);
-      } else if (trimmed.startsWith('## ')) {
-        htmlOutput.push(`<h2 class="text-xl font-bold mt-8 mb-4 border-b pb-2 text-slate-900">${trimmed.slice(3)}</h2>`);
-      } else if (trimmed.startsWith('### ')) {
-        htmlOutput.push(`<h3 class="text-lg font-bold mt-6 mb-2 text-slate-800">${trimmed.slice(4)}</h3>`);
-      } else if (trimmed.startsWith('> ')) {
-        htmlOutput.push(`<blockquote class="border-l-4 border-blue-600 bg-slate-50 pl-4 py-1 italic my-4 text-slate-600 rounded-r">${trimmed.slice(2)}</blockquote>`);
-      } else if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
-        htmlOutput.push(`<li class="ml-6 list-disc mb-1 text-slate-700">${trimmed.slice(2)}</li>`);
-      } else if (/^\d+\.\s/.test(trimmed)) {
-        const text = trimmed.replace(/^\d+\.\s/, '');
-        htmlOutput.push(`<li class="ml-6 list-decimal mb-1 text-slate-700">${text}</li>`);
-      } else if (trimmed.startsWith('<div') || trimmed.startsWith('<table') || trimmed.startsWith('</table') || trimmed.startsWith('</div') || trimmed.startsWith('<tr') || trimmed.startsWith('<td') || trimmed.startsWith('<th') || trimmed.startsWith('<thead') || trimmed.startsWith('<tbody')) {
-        htmlOutput.push(line);
-      } else if (trimmed === '') {
-        // Ignorar
+      // === NUEVA REGLA: DETECCIÓN DE TABLAS MARKDOWN ===
+      if (trimmed.startsWith('|')) {
+        if (!inTable) {
+          // Abrir contenedor de tabla con estilos Tailwind
+          htmlOutput.push('<div class="overflow-x-auto my-6"><table class="min-w-full bg-white border border-slate-200 shadow-sm rounded-lg"><tbody class="divide-y divide-slate-200">');
+          inTable = true;
+        }
+        
+        // Ignorar la típica línea divisoria de Markdown (|---|---|)
+        if (/^\|[\s\-:|]+\|$/.test(trimmed) && trimmed.includes('-')) {
+          return;
+        }
+
+        // Extraer las celdas quitando la primera y última barra
+        const cells = trimmed.split('|').slice(1, -1);
+        
+        // Detectar si es la primera fila para pintarla como encabezado
+        const isHeader = htmlOutput[htmlOutput.length - 1].includes('<tbody');
+        
+        let rowHtml = '<tr class="hover:bg-slate-50 transition-colors">';
+        cells.forEach(cell => {
+          if (isHeader) {
+            rowHtml += `<th class="px-4 py-3 text-left text-sm font-semibold text-slate-700 bg-slate-100">${cell.trim()}</th>`;
+          } else {
+            rowHtml += `<td class="px-4 py-3 text-sm text-slate-600 align-top">${cell.trim()}</td>`;
+          }
+        });
+        rowHtml += '</tr>';
+        htmlOutput.push(rowHtml);
+        
       } else {
-        htmlOutput.push(`<p class="mb-4 text-slate-700 leading-relaxed">${line}</p>`);
+        // Si estábamos en una tabla y la línea ya no empieza con '|', la cerramos
+        if (inTable) {
+          htmlOutput.push('</tbody></table></div>');
+          inTable = false;
+        }
+
+        // === REGLAS ANTERIORES INTACTAS ===
+        if (trimmed.startsWith('# ')) {
+          htmlOutput.push(`<h1 class="text-2xl font-extrabold mb-6 text-blue-900">${trimmed.slice(2)}</h1>`);
+        } else if (trimmed.startsWith('## ')) {
+          htmlOutput.push(`<h2 class="text-xl font-bold mt-8 mb-4 border-b pb-2 text-slate-900">${trimmed.slice(3)}</h2>`);
+        } else if (trimmed.startsWith('### ')) {
+          htmlOutput.push(`<h3 class="text-lg font-bold mt-6 mb-2 text-slate-800">${trimmed.slice(4)}</h3>`);
+        } else if (trimmed.startsWith('> ')) {
+          htmlOutput.push(`<blockquote class="border-l-4 border-blue-600 bg-slate-50 pl-4 py-1 italic my-4 text-slate-600 rounded-r">${trimmed.slice(2)}</blockquote>`);
+        } else if (trimmed.startsWith('* ') || trimmed.startsWith('- ')) {
+          htmlOutput.push(`<li class="ml-6 list-disc mb-1 text-slate-700">${trimmed.slice(2)}</li>`);
+        } else if (/^\d+\.\s/.test(trimmed)) {
+          const text = trimmed.replace(/^\d+\.\s/, '');
+          htmlOutput.push(`<li class="ml-6 list-decimal mb-1 text-slate-700">${text}</li>`);
+        } else if (trimmed.startsWith('<div') || trimmed.startsWith('<table') || trimmed.startsWith('</table') || trimmed.startsWith('</div') || trimmed.startsWith('<tr') || trimmed.startsWith('<td') || trimmed.startsWith('<th') || trimmed.startsWith('<thead') || trimmed.startsWith('<tbody')) {
+          htmlOutput.push(line);
+        } else if (trimmed === '') {
+          // Ignorar vacíos extra
+        } else {
+          htmlOutput.push(`<p class="mb-4 text-slate-700 leading-relaxed">${line}</p>`);
+        }
       }
     });
+
+    // Cierre de seguridad por si el archivo termina justo en la tabla
+    if (inTable) {
+      htmlOutput.push('</tbody></table></div>');
+    }
 
     return htmlOutput.join('\n')
       .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-slate-900">$1</strong>')
