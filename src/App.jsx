@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BookOpen, FileText, Scale, ShieldAlert, Table, Users, Database, CheckCircle, MessageSquare } from 'lucide-react';
+import { BookOpen, FileText, Scale, ShieldAlert, Table, Users, Database, CheckCircle, MessageSquare, Menu, X } from 'lucide-react';
 import logoInacap from './img/logo_inacap.png';
 
 const markdownFiles = import.meta.glob('./docs_pinale/*.md', { query: '?raw', import: 'default', eager: true });
@@ -97,6 +97,7 @@ const Prompts = ({ data }) => <MarkdownViewer content={data} />;
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('01_resumen');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const menuItems = [
     { id: '01_resumen', title: 'Resumen Ejecutivo', icon: FileText, component: Resumen },
@@ -111,11 +112,20 @@ export default function App() {
 
   const ActiveComponent = menuItems.find(item => item.id === activeTab)?.component || Resumen;
 
-  return (
+return (
     <div className="flex min-h-screen bg-slate-50 font-sans">
-      
-      <aside className="w-72 bg-white border-r border-slate-200 flex flex-col shadow-sm">
-        <div className="p-6 border-b border-slate-100">
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/50 z-40 md:hidden transition-opacity"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+      <aside className={`
+        fixed inset-y-0 left-0 z-50 w-72 bg-white border-r border-slate-200 flex flex-col shadow-xl md:shadow-sm
+        transform transition-transform duration-300 ease-in-out md:relative md:translate-x-0
+        ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+      `}>
+        <div className="p-6 border-b border-slate-100 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <Scale className="w-8 h-8 text-blue-700" />
             <div>
@@ -123,6 +133,9 @@ export default function App() {
               <p className="text-xs text-slate-500 font-medium">Ciberseguridad T13034</p>
             </div>
           </div>
+          <button onClick={() => setIsMobileMenuOpen(false)} className="md:hidden text-slate-400 hover:text-slate-600">
+            <X className="w-6 h-6" />
+          </button>
         </div>
         
         <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
@@ -133,7 +146,10 @@ export default function App() {
             return (
               <button
                 key={item.id}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => {
+                  setActiveTab(item.id);
+                  setIsMobileMenuOpen(false);
+                }}
                 className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200 text-left ${
                   isActive 
                     ? 'bg-blue-50 text-blue-700 shadow-sm ring-1 ring-blue-100/50' 
@@ -150,32 +166,50 @@ export default function App() {
         </nav>
       </aside>
 
-      <main className="flex-1 flex flex-col h-screen overflow-hidden">
-        <header className="bg-white border-b border-slate-200 px-8 py-5 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-slate-800">
-            {menuItems.find(item => item.id === activeTab)?.title}
-          </h2>
-          <div className="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-slate-200">
+      <main className="flex-1 flex flex-col h-screen overflow-hidden w-full">
+        <header className="bg-white border-b border-slate-200 px-4 md:px-8 py-4 md:py-5 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <button 
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="p-1 -ml-1 text-slate-500 hover:bg-slate-100 rounded-lg md:hidden"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <h2 className="text-lg md:text-xl font-bold text-slate-800 truncate">
+              {menuItems.find(item => item.id === activeTab)?.title}
+            </h2>
+          </div>
+          <div className="hidden sm:block bg-slate-100 text-slate-600 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide border border-slate-200 whitespace-nowrap">
             Caso: Banco de Chile 2018
           </div>
         </header>
 
-        <div className="flex-1 overflow-y-auto p-8">
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-10">
+        <div className="flex-1 overflow-y-auto p-4 md:p-8">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
             <ActiveComponent data={docData[activeTab]} />
           </div>
         </div>
 
-        <footer className="relative bg-white border-t border-slate-200 py-4 flex items-center justify-center text-sm text-slate-500 font-medium">
-          <span>Sitio Web creado por Alexander Pinto</span>
-          <div className="absolute right-8">
-            <img
-              src={logoInacap}
-              alt="Logo INACAP"
-              className="h-6 w-auto object-contain opacity-80"
-            />
-          </div>
-        </footer>
+      <footer className="relative bg-white border-t border-slate-200 py-4 flex flex-col md:flex-row items-center justify-center gap-3 text-xs md:text-sm text-slate-500 font-medium px-4">
+        <span className="text-center">
+          Sitio Web creado por{' '}
+          <a
+            href="https://github.com/elale06"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-bold text-blue-600 hover:text-blue-800 hover:underline transition-colors duration-200"
+          >
+            Alexander Pinto
+          </a>
+        </span>
+        <div className="md:absolute md:right-8">
+          <img
+            src={logoInacap}
+            alt="Logo INACAP"
+            className="h-6 w-auto object-contain opacity-80"
+          />
+        </div>
+      </footer>
       </main>
     </div>
   );
