@@ -17,14 +17,16 @@ const MarkdownViewer = ({ content }) => {
     const lines = content.split('\n');
     let htmlOutput = [];
     let inTable = false;
+    let tableHeaders = [];
 
     lines.forEach(line => {
       let trimmed = line.trim();
 
       if (trimmed.startsWith('|')) {
         if (!inTable) {
-          htmlOutput.push('<div class="overflow-x-auto my-6"><table class="min-w-full bg-white border border-slate-200 shadow-sm rounded-lg"><tbody class="divide-y divide-slate-200">');
+          htmlOutput.push('<div class="w-full my-6"><table class="min-w-full block md:table bg-transparent md:bg-white md:border md:border-slate-200 md:shadow-sm rounded-lg"><tbody class="block md:table-row-group md:divide-y md:divide-slate-200">');
           inTable = true;
+          tableHeaders = [];
         }
 
         if (/^\|[\s\-:|]+\|$/.test(trimmed) && trimmed.includes('-')) {
@@ -32,20 +34,31 @@ const MarkdownViewer = ({ content }) => {
         }
 
         const cells = trimmed.split('|').slice(1, -1);
-
         const isHeader = htmlOutput[htmlOutput.length - 1].includes('<tbody');
-        
-        let rowHtml = '<tr class="hover:bg-slate-50 transition-colors">';
-        cells.forEach(cell => {
-          if (isHeader) {
-            rowHtml += `<th class="px-4 py-3 text-left text-sm font-semibold text-slate-700 bg-slate-100">${cell.trim()}</th>`;
-          } else {
-            rowHtml += `<td class="px-4 py-3 text-sm text-slate-600 align-top">${cell.trim()}</td>`;
-          }
-        });
-        rowHtml += '</tr>';
-        htmlOutput.push(rowHtml);
-        
+
+        if (isHeader) {
+          let rowHtml = '<tr class="hidden md:table-row bg-slate-100">';
+          cells.forEach(cell => {
+            tableHeaders.push(cell.trim());
+            rowHtml += `<th class="px-4 py-3 text-left text-sm font-semibold text-slate-700">${cell.trim()}</th>`;
+          });
+          rowHtml += '</tr>';
+          htmlOutput.push(rowHtml);
+        } else {
+          let rowHtml = '<tr class="block md:table-row bg-white border border-slate-200 md:border-none shadow-sm md:shadow-none rounded-xl mb-4 md:mb-0 hover:bg-slate-50 transition-colors">';
+          cells.forEach((cell, index) => {
+            const headerLabel = tableHeaders[index] || '';
+            rowHtml += `
+              <td class="block md:table-cell px-4 py-3 text-sm text-slate-600 align-top border-b border-slate-100 md:border-none last:border-b-0">
+                <span class="block md:hidden text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">${headerLabel}</span>
+                <span class="block text-slate-700">${cell.trim()}</span>
+              </td>
+            `;
+          });
+          rowHtml += '</tr>';
+          htmlOutput.push(rowHtml);
+        }
+
       } else {
         if (inTable) {
           htmlOutput.push('</tbody></table></div>');
