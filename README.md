@@ -6,7 +6,6 @@ Este proyecto es una aplicación web interactiva desarrollada para presentar un 
 
 * **Diseño Responsivo:** Interfaz adaptada para dispositivos móviles con un menú lateral colapsable y tablas transformadas en tarjetas para facilitar la lectura.
 * **Navegación Intuitiva:** Sistema de pestañas para cambiar rápidamente entre los distintos capítulos del informe (Resumen Ejecutivo, Marco Normativo, Delitos, etc.).
-* **Flexibilidad de dispositivos:** La aplicación web cuenta con soporte para dispositivos móviles, manteniendo la estética y visuales.
 
 ## 🔧 Tecnologías Utilizadas
 
