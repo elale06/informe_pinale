@@ -1,16 +1,16 @@
-# Evaluación Unidad 2
+# ⚖️ Análisis Legal - Ciberseguridad (Caso Banco de Chile 2018)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este proyecto es una aplicación web interactiva desarrollada para presentar un informe sobre el marco normativo, los delitos informáticos (Ley 21.459) y las responsabilidades derivadas del ciberataque sufrido por el Banco de Chile en 2018.
 
-Currently, two official plugins are available:
+## 📝 Características Principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **Diseño Responsivo:** Interfaz adaptada para dispositivos móviles con un menú lateral colapsable y tablas transformadas en tarjetas para facilitar la lectura.
+* **Navegación Intuitiva:** Sistema de pestañas para cambiar rápidamente entre los distintos capítulos del informe (Resumen Ejecutivo, Marco Normativo, Delitos, etc.).
+* **Flexibilidad de dispositivos:** La aplicación web cuenta con soporte para dispositivos móviles, manteniendo la estética y visuales.
 
-## React Compiler
+## 🔧 Tecnologías Utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **[React](https://reactjs.org/)** - Librería principal para la construcción de interfaces de usuario.
+* **[Vite](https://vitejs.dev/)** - Entorno de desarrollo ultrarrápido y empaquetador de módulos.
+* **[Tailwind CSS](https://tailwindcss.com/)** - Framework de CSS utilitario para los estilos y la adaptabilidad móvil.
+* **[Lucide React](https://lucide.dev/)** - Colección de iconos limpios y consistentes.
