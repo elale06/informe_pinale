@@ -1,26 +1,14 @@
 import React, { useState } from 'react';
 import { BookOpen, FileText, Scale, ShieldAlert, Table, Users, Database, CheckCircle, MessageSquare } from 'lucide-react';
+import logoInacap from './img/logo_inacap.png';
 
-/* =======================================================================
-  IMPORTACIÓN DINÁMICA DE VITE
-  =======================================================================
-  Vite leerá todos los archivos .md en la carpeta docs_pinale y los 
-  importará como texto plano (raw) de manera síncrona (eager: true).
-  =======================================================================
-*/
 const markdownFiles = import.meta.glob('./docs_pinale/*.md', { query: '?raw', import: 'default', eager: true });
 
-// Convertimos las rutas de Vite en un objeto limpio fácil de leer
-// Ej: './docs_pinale/01_resumen_pinale.md' -> '01_resumen'
 const docData = {};
 for (const path in markdownFiles) {
   const key = path.replace('./docs_pinale/', '').replace('_pinale.md', '');
   docData[key] = markdownFiles[path];
 }
-
-// ==========================================
-// 1. COMPONENTES DE SECCIÓN (Procesador)
-// ==========================================
 
 const MarkdownViewer = ({ content }) => {
   if (!content) return <div className="p-4 text-slate-500 italic">Cargando contenido o archivo no encontrado...</div>;
@@ -28,28 +16,23 @@ const MarkdownViewer = ({ content }) => {
   const renderHTML = () => {
     const lines = content.split('\n');
     let htmlOutput = [];
-    let inTable = false; // Nuevo estado para saber si estamos dentro de una tabla
+    let inTable = false;
 
     lines.forEach(line => {
       let trimmed = line.trim();
-      
-      // === NUEVA REGLA: DETECCIÓN DE TABLAS MARKDOWN ===
+
       if (trimmed.startsWith('|')) {
         if (!inTable) {
-          // Abrir contenedor de tabla con estilos Tailwind
           htmlOutput.push('<div class="overflow-x-auto my-6"><table class="min-w-full bg-white border border-slate-200 shadow-sm rounded-lg"><tbody class="divide-y divide-slate-200">');
           inTable = true;
         }
-        
-        // Ignorar la típica línea divisoria de Markdown (|---|---|)
+
         if (/^\|[\s\-:|]+\|$/.test(trimmed) && trimmed.includes('-')) {
           return;
         }
 
-        // Extraer las celdas quitando la primera y última barra
         const cells = trimmed.split('|').slice(1, -1);
-        
-        // Detectar si es la primera fila para pintarla como encabezado
+
         const isHeader = htmlOutput[htmlOutput.length - 1].includes('<tbody');
         
         let rowHtml = '<tr class="hover:bg-slate-50 transition-colors">';
@@ -64,13 +47,11 @@ const MarkdownViewer = ({ content }) => {
         htmlOutput.push(rowHtml);
         
       } else {
-        // Si estábamos en una tabla y la línea ya no empieza con '|', la cerramos
         if (inTable) {
           htmlOutput.push('</tbody></table></div>');
           inTable = false;
         }
 
-        // === REGLAS ANTERIORES INTACTAS ===
         if (trimmed.startsWith('# ')) {
           htmlOutput.push(`<h1 class="text-2xl font-extrabold mb-6 text-blue-900">${trimmed.slice(2)}</h1>`);
         } else if (trimmed.startsWith('## ')) {
@@ -87,14 +68,12 @@ const MarkdownViewer = ({ content }) => {
         } else if (trimmed.startsWith('<div') || trimmed.startsWith('<table') || trimmed.startsWith('</table') || trimmed.startsWith('</div') || trimmed.startsWith('<tr') || trimmed.startsWith('<td') || trimmed.startsWith('<th') || trimmed.startsWith('<thead') || trimmed.startsWith('<tbody')) {
           htmlOutput.push(line);
         } else if (trimmed === '') {
-          // Ignorar vacíos extra
         } else {
           htmlOutput.push(`<p class="mb-4 text-slate-700 leading-relaxed">${line}</p>`);
         }
       }
     });
 
-    // Cierre de seguridad por si el archivo termina justo en la tabla
     if (inTable) {
       htmlOutput.push('</tbody></table></div>');
     }
@@ -116,10 +95,6 @@ const Datos = ({ data }) => <MarkdownViewer content={data} />;
 const Conclusiones = ({ data }) => <MarkdownViewer content={data} />;
 const Prompts = ({ data }) => <MarkdownViewer content={data} />;
 
-// ==========================================
-// 2. APLICACIÓN PRINCIPAL (Layout y Navegación)
-// ==========================================
-
 export default function App() {
   const [activeTab, setActiveTab] = useState('01_resumen');
 
@@ -139,7 +114,6 @@ export default function App() {
   return (
     <div className="flex min-h-screen bg-slate-50 font-sans">
       
-      {/* Sidebar de Navegación */}
       <aside className="w-72 bg-white border-r border-slate-200 flex flex-col shadow-sm">
         <div className="p-6 border-b border-slate-100">
           <div className="flex items-center gap-3">
@@ -176,7 +150,6 @@ export default function App() {
         </nav>
       </aside>
 
-      {/* Área de Contenido Principal */}
       <main className="flex-1 flex flex-col h-screen overflow-hidden">
         <header className="bg-white border-b border-slate-200 px-8 py-5 flex items-center justify-between">
           <h2 className="text-xl font-bold text-slate-800">
@@ -189,12 +162,21 @@ export default function App() {
 
         <div className="flex-1 overflow-y-auto p-8">
           <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-slate-200 p-10">
-            {/* Se envía el contenido extraído de los archivos físicos */}
             <ActiveComponent data={docData[activeTab]} />
           </div>
         </div>
-      </main>
 
+        <footer className="relative bg-white border-t border-slate-200 py-4 flex items-center justify-center text-sm text-slate-500 font-medium">
+          <span>Sitio Web creado por Alexander Pinto</span>
+          <div className="absolute right-8">
+            <img
+              src={logoInacap}
+              alt="Logo INACAP"
+              className="h-6 w-auto object-contain opacity-80"
+            />
+          </div>
+        </footer>
+      </main>
     </div>
   );
 }
