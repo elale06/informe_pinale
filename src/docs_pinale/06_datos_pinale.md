@@ -3,6 +3,7 @@
 Aunque el banco declaró que las cuentas de los clientes no fueron vaciadas, la manipulación de la red SWIFT implica el tratamiento no autorizado de metadatos de transacciones.
 
 ## Tipos de Datos Comprometidos y Clasificación
+
 En las órdenes de transferencia SWIFT generadas por los atacantes, se utilizaron:
 
 * **Nombres de Beneficiarios / Remitentes:** Dato Personal.
@@ -12,6 +13,7 @@ En las órdenes de transferencia SWIFT generadas por los atacantes, se utilizaro
 > **Distinción clave:** Según la Ley 19.628 de Chile, estos datos financieros y de identificación son Datos Personales, pero **NO** son Datos Sensibles (como sí lo serían datos de salud, origen racial o ideología política, definidos en el Art. 2 letra g).
 
 ## Análisis de Derechos ARCO Afectados (Ley 19.628)
+
 En este escenario, los clientes del banco podrían ejercer sus derechos ARCO garantizados por ley:
 
 1. **Derecho de Acceso (Art. 12):** Durante el apagón tecnológico y las noticias del robo, los clientes tenían el derecho legítimo de exigir al banco información sobre si sus datos personales y estados de cuenta habían sido accedidos, modificados o transferidos por los delincuentes.
