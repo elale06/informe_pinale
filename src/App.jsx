@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { BookOpen, FileText, Scale, ShieldAlert, Table, Users, Database, CheckCircle, MessageSquare, Menu, X } from 'lucide-react';
 import logoInacap from './img/logo_inacap.png';
 
-const markdownFiles = import.meta.glob('./docs_pinale/*.md', { query: '?raw', import: 'default', eager: true });
+const markdownFiles = import.meta.glob('../docs_pinale/*.md', { query: '?raw', import: 'default', eager: true });
 
 const docData = {};
 for (const path in markdownFiles) {
-  const key = path.replace('./docs_pinale/', '').replace('_pinale.md', '');
+  const key = path.replace('../docs_pinale/', '').replace('_pinale.md', '');
   docData[key] = markdownFiles[path];
 }
 
