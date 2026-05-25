@@ -1,4 +1,4 @@
-# ⚖️ Análisis Legal - Ciberseguridad (Caso Banco de Chile 2018)
+# ⚖️ Análisis Legal - Ciberseguridad (Caso Banco de Chile 2018) [Ev. 2]
 
 Este proyecto es una aplicación web interactiva desarrollada para presentar un informe sobre el marco normativo, los delitos informáticos (Ley 21.459) y las responsabilidades derivadas del ciberataque sufrido por el Banco de Chile en 2018.
 
